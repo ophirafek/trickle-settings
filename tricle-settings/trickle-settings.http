@@ -1,6 +1,6 @@
 @tricle_settings_HostAddress = http://localhost:5090
 
-GET {{tricle_settings_HostAddress}}/weatherforecast/
+GET {{trickle_settings_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
