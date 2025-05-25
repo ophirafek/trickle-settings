@@ -12,6 +12,7 @@ using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 // Add services to the container
 builder.Services.AddControllers();
 
@@ -21,13 +22,15 @@ builder.Services.AddDbContext<AppSettingsContext>(options =>
 
 // Add services
 builder.Services.AddScoped<ICountryService, CountryService>();
+builder.Services.AddScoped<IGeneralCodeService, GeneralCodeService>();
 
 // Add CORS
 builder.Services.AddCors(options =>
 {
+    var allowedOrigins = builder.Configuration["AllowedOrigins"];
     options.AddPolicy("AllowAngularApp", policy =>
     {
-        policy.WithOrigins(builder.Configuration["AllowedOrigins:AngularApp"] ?? "http://localhost:4200")
+        policy.WithOrigins(allowedOrigins.Split(";"))
             .AllowAnyMethod()
             .AllowAnyHeader();
     });

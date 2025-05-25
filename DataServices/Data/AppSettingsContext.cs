@@ -1,8 +1,5 @@
 ﻿using AppSettings.API.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 
 namespace AppSettings.API.Data
 {
@@ -24,6 +21,11 @@ namespace AppSettings.API.Data
         /// DbSet for Countries
         /// </summary>
         public DbSet<Country> Countries { get; set; }
+
+        /// <summary>
+        /// DbSet for GeneralCodes
+        /// </summary>
+        public DbSet<GeneralCode> GeneralCodes { get; set; }
 
         /// <summary>
         /// Configure model relationships and constraints
@@ -49,55 +51,22 @@ namespace AppSettings.API.Data
                     .HasDefaultValue(true);
             });
 
-            // Seed initial data
-            SeedData(modelBuilder);
-        }
+            // Configure GeneralCode entity
+            modelBuilder.Entity<GeneralCode>(entity =>
+            {
+                entity.HasIndex(e => new { e.CodeType, e.CodeNumber, e.LanguageCode })
+                    .IsUnique()
+                    .HasName("UQ_GeneralCodes_TypeNumber_Language");
 
-        private void SeedData(ModelBuilder modelBuilder)
-        {
-            // Seed some common countries
-            modelBuilder.Entity<Country>().HasData(
-                new Country
-                {
-                    Id = 1,
-                    CountryCode = "US",
-                    CountryName = "United States",
-                    CreatedDate = DateTime.UtcNow,
-                    IsActive = true
-                },
-                new Country
-                {
-                    Id = 2,
-                    CountryCode = "CA",
-                    CountryName = "Canada",
-                    CreatedDate = DateTime.UtcNow,
-                    IsActive = true
-                },
-                new Country
-                {
-                    Id = 3,
-                    CountryCode = "UK",
-                    CountryName = "United Kingdom",
-                    CreatedDate = DateTime.UtcNow,
-                    IsActive = true
-                },
-                new Country
-                {
-                    Id = 4,
-                    CountryCode = "DE",
-                    CountryName = "Germany",
-                    CreatedDate = DateTime.UtcNow,
-                    IsActive = true
-                },
-                new Country
-                {
-                    Id = 5,
-                    CountryCode = "FR",
-                    CountryName = "France",
-                    CreatedDate = DateTime.UtcNow,
-                    IsActive = true
-                }
-            );
+                entity.HasIndex(e => new { e.CodeType, e.LanguageCode })
+                    .HasName("IX_GeneralCodes_CodeType_LanguageCode");
+
+                entity.Property(e => e.CreatedDate)
+                    .HasDefaultValueSql("GETDATE()");
+
+                entity.Property(e => e.IsActive)
+                    .HasDefaultValue(true);
+            });
         }
     }
 }
