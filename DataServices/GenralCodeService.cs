@@ -104,8 +104,8 @@ namespace AppSettings.API.Services
                     CodeShortDescription = generalCodeDto.CodeShortDescription,
                     CodeLongDescription = generalCodeDto.CodeLongDescription,
                     LanguageCode = generalCodeDto.LanguageCode,
-                    IsActive = generalCodeDto.IsActive,
-                    CreatedDate = DateTime.UtcNow
+                    ActiveFlag = generalCodeDto.IsActive,
+                    OpeningRegDate = DateTime.UtcNow
                 };
 
                 _context.GeneralCodes.Add(generalCode);
@@ -129,8 +129,8 @@ namespace AppSettings.API.Services
                 generalCode.CodeShortDescription = generalCodeDto.CodeShortDescription;
                 generalCode.CodeLongDescription = generalCodeDto.CodeLongDescription;
                 generalCode.LanguageCode = generalCodeDto.LanguageCode;
-                generalCode.IsActive = generalCodeDto.IsActive;
-                generalCode.ModifiedDate = DateTime.UtcNow;
+                generalCode.ActiveFlag = generalCodeDto.IsActive;
+                generalCode.ClosingRegDate = DateTime.UtcNow;
 
                 await _context.SaveChangesAsync();
                 return generalCodeDto;
@@ -172,7 +172,7 @@ namespace AppSettings.API.Services
                 CodeShortDescription = generalCode.CodeShortDescription,
                 CodeLongDescription = generalCode.CodeLongDescription,
                 LanguageCode = generalCode.LanguageCode,
-                IsActive = generalCode.IsActive
+                IsActive = generalCode.ActiveFlag
             };
         }
     }

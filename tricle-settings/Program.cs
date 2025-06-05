@@ -23,7 +23,7 @@ builder.Services.AddDbContext<AppSettingsContext>(options =>
 // Add services
 builder.Services.AddScoped<ICountryService, CountryService>();
 builder.Services.AddScoped<IGeneralCodeService, GeneralCodeService>();
-
+builder.Services.AddScoped<ICustomFieldService, CustomFieldService>();
 // Add CORS
 builder.Services.AddCors(options =>
 {

@@ -50,17 +50,17 @@ namespace AppSettings.API.Models
         /// Date when the code was created
         /// </summary>
         [Required]
-        public DateTime CreatedDate { get; set; }
+        public DateTime OpeningRegDate { get; set; }
 
         /// <summary>
         /// Date when the code was last modified
         /// </summary>
-        public DateTime? ModifiedDate { get; set; }
+        public DateTime? ClosingRegDate { get; set; }
 
         /// <summary>
         /// Flag indicating if the code is active
         /// </summary>
         [Required]
-        public bool IsActive { get; set; }
+        public bool ActiveFlag { get; set; }
     }
 }
